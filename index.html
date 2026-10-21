@@ -4,82 +4,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FYTI Downloader</title>
+<meta name="theme-color" content="#101026">
+<title>FYTI Downloader — All-in-One Video Downloader</title>
 <style>
+:root{--bg:#0d0c20;--card:#191832;--muted:#b9b7d3;--white:#fff}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff;padding:22px 14px}
-main{max-width:650px;margin:auto}
-header{text-align:center;padding:22px 0}
-.logo{font-size:30px;font-weight:900;color:#a78bfa}
-p{color:#b9c3d9;line-height:1.6}
-.card{background:#151d32;border:1px solid #303b58;border-radius:18px;padding:20px;margin:16px 0}
-input,select,button{width:100%;padding:14px;border-radius:10px;font-size:16px;margin-top:10px}
-input,select{background:#0b1020;border:1px solid #465372;color:white}
-button{border:0;font-weight:bold;cursor:pointer;background:linear-gradient(90deg,#8b5cf6,#06b6d4);color:white}
-button:disabled{opacity:.5}
-.small{font-size:13px}
-#status{overflow-wrap:anywhere}
-#preview{width:100%;max-height:300px;object-fit:contain;border-radius:12px;margin-top:14px}
-.qualities{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.qualities button{font-size:14px;padding:11px 4px}
-.qualities button.selected{outline:2px solid #22d3ee;background:#4c1d95}
-.ad{border:1px dashed #697794;text-align:center;padding:18px;color:#aab5cc;border-radius:12px}
-a{color:#67e8f9}
+body{margin:0;background:radial-gradient(ellipse at 10% 0%,#30205c 0,transparent 40%),radial-gradient(ellipse at 100% 35%,#103b55 0,transparent 35%),var(--bg);font-family:Arial,sans-serif;color:var(--white);min-height:100vh}
+main{max-width:820px;margin:auto;padding:18px 15px 36px}
+.ad{min-height:66px;border:1px dashed #5c587e;border-radius:13px;display:flex;align-items:center;justify-content:center;text-align:center;color:#bdb9d9;font-size:13px;margin-bottom:23px;background:#ffffff06}
+header{text-align:center;padding:16px 0 25px}
+.brand{font-size:clamp(27px,7vw,43px);font-weight:900;letter-spacing:-1px}
+.brand span{background:linear-gradient(90deg,#ff61c7,#a78bfa,#42e8e0);background-clip:text;-webkit-background-clip:text;color:transparent}
+.tag{color:var(--muted);margin-top:10px;font-size:15px}
+h1{font-size:clamp(25px,6vw,37px);line-height:1.2;margin:22px 0 12px}
+.grad{background:linear-gradient(90deg,#ff75c3,#b39aff,#57e9e2);background-clip:text;-webkit-background-clip:text;color:transparent}
+.intro{color:var(--muted);line-height:1.7;font-size:15px}
+.platforms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:22px 0}
+.platform{padding:13px 4px;border-radius:15px;background:#ffffff0a;border:1px solid #ffffff16;text-align:center;font-size:13px;font-weight:bold}
+.plogo{width:37px;height:37px;margin:0 auto 8px;display:grid;place-items:center;border-radius:12px;font-size:21px;color:white}
+.fb{background:#1877f2}.ig{background:linear-gradient(135deg,#7638fa,#f12889,#ffb343)}.yt{background:#ff1538}.tt{background:#15151c;border:1px solid #555}
+.card{background:linear-gradient(145deg,#201d3c,#14172d);border:1px solid #ffffff18;border-radius:22px;padding:21px;margin:17px 0;box-shadow:0 15px 45px #0002}
+.card h2,.card h3{margin:0 0 10px}
+.field{display:flex;gap:9px;margin-top:18px}
+input{width:100%;min-width:0;background:#0d0c20;color:white;border:1px solid #4a456b;border-radius:13px;padding:16px;font-size:15px;outline:none}
+input:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa20}
+button{border:0;border-radius:12px;padding:14px 16px;font-size:14px;font-weight:800;cursor:pointer;color:white}
+.paste{background:#393454;border:1px solid #625b84}
+.primary{width:100%;margin-top:12px;background:linear-gradient(100deg,#ec4899,#8b5cf6 52%,#06b6d4);font-size:16px;padding:16px}
+button:disabled{opacity:.55;cursor:wait}
+.status{font-size:14px;color:#d5d3ed;line-height:1.65;overflow-wrap:anywhere;margin:15px 0 0}
+.status.error{color:#ff9aab}.status.ok{color:#79f2c7}
+#preview{display:block;width:100%;max-height:300px;object-fit:contain;border-radius:14px;margin-top:15px}
+#details{margin-top:12px}
+#title{overflow-wrap:anywhere}
+.quality-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}
+.qbtn{background:#ffffff08;border:1px solid #45415f;text-align:left;line-height:1.6}
+.qbtn small{display:block;color:#bcb8d7;font-weight:normal}
+.qbtn.selected{border-color:#b69cff;background:#8b5cf625;box-shadow:0 0 0 1px #b69cff44}
+.download{width:100%;margin-top:16px;background:linear-gradient(100deg,#12b981,#06b6d4);font-size:16px;padding:17px}
+.features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:15px}
+.feature{background:#ffffff08;border-radius:13px;padding:14px;font-size:14px}
+.feature b{display:block;margin-bottom:6px}
+.note{font-size:12px;line-height:1.7;color:#aaa7c6}
+footer{text-align:center;color:#aaa7c6;font-size:12px;line-height:1.8;padding-top:14px}
+a{color:#78e8ff;overflow-wrap:anywhere}
+.hidden{display:none!important}
+@media(max-width:430px){main{padding:13px 11px 25px}.card{padding:17px}.field{gap:7px}.paste{padding:12px}.platform{font-size:12px}.quality-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <main>
-<header>
-<div class="logo">▶ FYTI Downloader</div>
-<p>One Link. Your Video Studio.</p>
-</header>
+  <div class="ad">📢 AD SPACE · Advertisement</div>
 
-<div class="card">
-<h2>Download Video</h2>
-<p>Paste a Facebook, YouTube, TikTok or Instagram video URL.</p>
-<input id="url" type="url" placeholder="Enter video URL here..." autocomplete="url">
-<button id="check">🔎 Detect Video</button>
-<p id="status">Ready. Enter a video link to begin.</p>
-<div id="details" hidden>
-<img id="preview" alt="Video thumbnail" hidden>
-<h3 id="title"></h3>
-<p id="meta"></p>
-</div>
-</div>
+  <header>
+    <div class="brand">▶ <span>FYTI Downloader</span></div>
+    <div class="tag">One Link. Every Supported Platform.</div>
+    <h1>All-in-One <span class="grad">Video Downloader</span></h1>
+    <p class="intro">Download videos from supported social platforms using a single link. Paste your URL and let FYTI detect the platform.</p>
+  </header>
 
-<div class="card">
-<h3>Choose Quality</h3>
-<div class="qualities" id="qualities">
-<button data-q="460p">460p</button>
-<button data-q="720p" class="selected">720p</button>
-<button data-q="1080p">1080p</button>
-<button data-q="2k">2K</button>
-<button data-q="4k">4K</button>
-</div>
-<button id="download">⬇ Download Video</button>
-<p class="small">Available quality depends on the source video and server limits.</p>
-</div>
+  <div class="platforms">
+    <div class="platform"><div class="plogo fb">f</div>Facebook</div>
+    <div class="platform"><div class="plogo ig">◎</div>Instagram</div>
+    <div class="platform"><div class="plogo yt">▶</div>YouTube</div>
+    <div class="platform"><div class="plogo tt">♪</div>TikTok</div>
+  </div>
 
-<div class="card ad">
-<strong>Advertisement</strong>
-<p class="small">Ad space — connect an approved ad service to display ads.</p>
-</div>
+  <section class="card">
+    <h2>🔗 Download Video</h2>
+    <p class="intro">Enter your Facebook / YouTube / TikTok / Instagram URL here to download.</p>
+    <p class="intro">This site can automatically detect your platform.</p>
 
-<div class="card">
-<h3>✨ FYTI Features</h3>
-<p>• Automatic platform detection</p>
-<p>• Video information and thumbnail when available</p>
-<p>• Multiple quality options when supported</p>
-<p class="small">Only download videos you own or have permission to save. Platform rules and copyright restrictions may apply.</p>
-</div>
-<p class="small" style="text-align:center">FYTI Downloader · Use responsibly</p>
+    <div class="field">
+      <input id="url" type="url" placeholder="Paste video URL here..." autocomplete="url">
+      <button class="paste" id="paste" type="button">📋 Paste</button>
+    </div>
+
+    <button class="primary" id="detect" type="button">🔍 Detect Video</button>
+    <p id="status" class="status" role="status" aria-live="polite">Ready! Paste your video link to get started.</p>
+
+    <div id="details" class="hidden">
+      <img id="preview" class="hidden" alt="Video thumbnail">
+      <h3 id="title"></h3>
+      <p id="meta" class="note"></p>
+      <a id="original" href="#" target="_blank" rel="noopener noreferrer">Open original video ↗</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>⚡ Choose Video Quality</h3>
+    <p class="intro">Select your preferred quality. Actual availability depends on the source and server.</p>
+    <div class="quality-grid">
+      <button class="qbtn" data-q="460p">⬇ 460p <small>Standard quality</small></button>
+      <button class="qbtn selected" data-q="720p">⬇ 720p <small>HD quality</small></button>
+      <button class="qbtn" data-q="1080p">⬇ 1080p <small>Full HD</small></button>
+      <button class="qbtn" data-q="2k">⬇ 2K <small>If supported</small></button>
+      <button class="qbtn" data-q="4k">⬇ 4K <small>If supported</small></button>
+    </div>
+    <button class="download" id="download" type="button">⬇ Download Video</button>
+    <p class="note">Some videos or resolutions may not be available on the server.</p>
+  </section>
+
+  <div class="ad">📢 AD SPACE · Connect an approved advertising provider to show real ads.</div>
+
+  <section class="card">
+    <h3>✨ Why Choose FYTI?</h3>
+    <div class="features">
+      <div class="feature">🌈 <b>Modern Design</b><span class="note">Colorful and easy to use.</span></div>
+      <div class="feature">📱 <b>Mobile Friendly</b><span class="note">Designed for phone screens.</span></div>
+      <div class="feature">🔎 <b>Auto Detection</b><span class="note">Recognizes supported platform links.</span></div>
+      <div class="feature">⚡ <b>Quality Options</b><span class="note">Choose from available resolutions.</span></div>
+    </div>
+  </section>
+
+  <footer>
+    Only download content you own or have permission to save.<br>
+    Platform restrictions, copyright rules and server limits may apply.<br>
+    © 2026 FYTI Downloader
+  </footer>
 </main>
 
 <script>
 const API = "https://fyti-downloader-backend-1.onrender.com";
 const $ = id => document.getElementById(id);
 let quality = "720p";
-let infoLoaded = false;
+let detectedUrl = "";
+
+function setStatus(message, type="") {
+  $("status").textContent = message;
+  $("status").className = "status " + type;
+}
+
+function isHttpsUrl(value) {
+  try {
+    const u = new URL(value);
+    return u.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function getPlatform(value) {
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^www\./,"");
+    if (host === "facebook.com" || host.endsWith(".facebook.com") || host === "fb.watch") return "Facebook";
+    if (host === "instagram.com" || host.endsWith(".instagram.com")) return "Instagram";
+    if (host === "youtube.com" || host.endsWith(".youtube.com") || host === "youtu.be" || host === "youtube-nocookie.com") return "YouTube";
+    if (host === "tiktok.com" || host.endsWith(".tiktok.com")) return "TikTok";
+    return "Unknown platform";
+  } catch {
+    return "Unknown platform";
+  }
+}
+
+async function readResponse(res) {
+  const type = res.headers.get("content-type") || "";
+  if (type.includes("application/json")) {
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || "Request failed (" + res.status + ").");
+    return data;
+  }
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Server error (" + res.status + ").");
+  }
+  return res.blob();
+}
 
 document.querySelectorAll("[data-q]").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -88,91 +178,120 @@ document.querySelectorAll("[data-q]").forEach(btn => {
   });
 });
 
-function validUrl(value) {
+$("paste").addEventListener("click", async () => {
   try {
-    const u = new URL(value);
-    return ["http:", "https:"].includes(u.protocol);
-  } catch { return false; }
-}
+    const value = await navigator.clipboard.readText();
+    if (!value) {
+      setStatus("Your clipboard is empty. Copy a video link first.", "error");
+      return;
+    }
+    $("url").value = value.trim();
+    setStatus("Link pasted! Tap Detect Video.", "ok");
+  } catch {
+    $("url").focus();
+    setStatus("Clipboard access was blocked. Copy the link, then press and hold the box and tap Paste.", "error");
+  }
+});
 
-$("check").addEventListener("click", async () => {
+$("url").addEventListener("input", () => {
+  detectedUrl = "";
+  $("details").classList.add("hidden");
+});
+
+$("detect").addEventListener("click", async () => {
   const url = $("url").value.trim();
-  if (!validUrl(url)) {
-    $("status").textContent = "Please enter a valid video URL.";
+  if (!isHttpsUrl(url)) {
+    setStatus("Please paste a valid HTTPS video link.", "error");
     return;
   }
-  $("check").disabled = true;
-  $("status").textContent = "Checking video... first request may take a little time.";
-  $("details").hidden = true;
-  infoLoaded = false;
+
+  const platform = getPlatform(url);
+  if (platform === "Unknown platform") {
+    setStatus("This link is not from one of the currently supported platforms.", "error");
+    return;
+  }
+
+  detectedUrl = url;
+  $("detect").disabled = true;
+  $("details").classList.add("hidden");
+  setStatus("Detected " + platform + ". Checking video details... The first request may take a little time.");
 
   try {
     const res = await fetch(API + "/info", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type":"application/json","Accept":"application/json"},
       body: JSON.stringify({url})
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.detail || "Could not read video information.");
+    const data = await readResponse(res);
 
-    $("title").textContent = data.title || "Video detected";
-    $("meta").textContent = "Platform: " + (data.platform || "Unknown") +
-      (data.duration ? " · Duration: " + data.duration + " sec" : "");
+    $("title").textContent = data.title || platform + " video";
+    $("meta").textContent = "Platform: " + (data.platform || platform) +
+      (data.duration ? " · Duration: " + data.duration + " seconds" : "");
+    $("original").href = url;
+
     if (data.thumbnail) {
       $("preview").src = data.thumbnail;
-      $("preview").hidden = false;
-      $("preview").onerror = () => $("preview").hidden = true;
+      $("preview").classList.remove("hidden");
+      $("preview").onerror = () => $("preview").classList.add("hidden");
     } else {
-      $("preview").hidden = true;
+      $("preview").classList.add("hidden");
     }
-    $("details").hidden = false;
-    $("status").textContent = "Video information loaded. Choose quality and tap Download Video.";
-    infoLoaded = true;
+
+    $("details").classList.remove("hidden");
+    setStatus("Video information loaded. Choose a quality and tap Download Video.", "ok");
   } catch (err) {
-    $("status").textContent = "Could not check video: " + err.message +
-      " — the server may be waking up or this link may not be supported.";
+    setStatus("Could not load video details: " + err.message + " You can still try Download Video.", "error");
   } finally {
-    $("check").disabled = false;
+    $("detect").disabled = false;
   }
 });
 
 $("download").addEventListener("click", async () => {
   const url = $("url").value.trim();
-  if (!validUrl(url)) {
-    $("status").textContent = "First enter a valid video URL.";
+  if (!isHttpsUrl(url)) {
+    setStatus("Paste a valid HTTPS video link first.", "error");
     return;
   }
+
+  const platform = getPlatform(url);
+  if (platform === "Unknown platform") {
+    setStatus("This platform is not currently supported.", "error");
+    return;
+  }
+
   $("download").disabled = true;
-  $("status").textContent = "Preparing download... please wait. Large videos may take longer.";
+  setStatus("Preparing your video in " + quality + "... Please wait. Large videos can take longer.");
 
   try {
     const res = await fetch(API + "/download", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type":"application/json","Accept":"*/*"},
       body: JSON.stringify({url, quality})
     });
+
     if (!res.ok) {
-      let message = "Download failed. The link may be unsupported or the server may be busy.";
+      let message = "Download failed (" + res.status + ").";
       try {
         const data = await res.json();
-        if (data.detail) message = data.detail;
+        if (data.detail) message = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail);
       } catch {}
       throw new Error(message);
     }
 
     const blob = await res.blob();
     if (!blob.size) throw new Error("The server returned an empty file.");
+
     const objectUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = objectUrl;
-    a.download = "fyti-video.mp4";
+    a.download = "FYTI-video-" + quality + ".mp4";
     document.body.appendChild(a);
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
-    $("status").textContent = "Download started! Check your phone's Downloads folder.";
+    setStatus("Download requested! Check your phone's Downloads folder.", "ok");
   } catch (err) {
-    $("status").textContent = "Download error: " + err.message;
+    setStatus("Download error: " + err.message + " Try another permitted video link. If it keeps failing, the backend needs fixing.", "error");
   } finally {
     $("download").disabled = false;
   }
