@@ -1,139 +1,156 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="FYTI Downloader - One Link. All Your Videos.">
-<title>FYTI Downloader - Video Downloader</title>
+<meta name="theme-color" content="#100c2b">
+<meta name="description" content="FYTI Downloader - Video link preview and downloader interface.">
+<title>FYTI Downloader — Video Studio</title>
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  color:#fff;
-  background:radial-gradient(circle at top left,#123e78,transparent 45%),
-  linear-gradient(135deg,#020817,#10102d,#071a30);
-  min-height:100vh;
+:root {
+  --bg: #0b0920;
+  --panel: #171331;
+  --line: #39305f;
+  --text: #f7f5ff;
+  --muted: #b9b2d4;
+  --pink: #ff49a4;
+  --blue: #42c8ff;
+  --purple: #8c65ff;
 }
-header{
-  padding:20px;
-  border-bottom:1px solid #244466;
-  text-align:center;
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 5% 0%, #51228b 0, transparent 35%),
+    radial-gradient(ellipse at 100% 25%, #123e75 0, transparent 35%),
+    linear-gradient(150deg, #090719, #11102c 55%, #090719);
+  min-height: 100vh;
 }
-.logo{
-  font-size:30px;
-  font-weight:bold;
-  background:linear-gradient(90deg,#00e5ff,#a855f7,#ff4db8);
-  -webkit-background-clip:text;
-  color:transparent;
+header {
+  padding: 20px 14px;
+  text-align: center;
+  border-bottom: 1px solid #ffffff18;
+  background: #0b092080;
 }
-main{
-  max-width:850px;
-  width:92%;
-  margin:50px auto;
-  text-align:center;
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -.8px;
+  background: linear-gradient(90deg, #42e8ff, #a18aff, #ff55b5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
-h1{font-size:clamp(32px,7vw,56px);margin-bottom:12px}
-.gradient{
-  background:linear-gradient(90deg,#00e5ff,#818cf8,#ff4db8);
-  -webkit-background-clip:text;
-  color:transparent;
+.tagline { color: var(--muted); margin: 7px 0 0; font-size: 13px; }
+main { width: min(760px, 92%); margin: 35px auto; }
+.hero { text-align: center; margin-bottom: 26px; }
+h1 { font-size: clamp(32px, 7vw, 48px); margin: 0 0 10px; }
+.gradient {
+  background: linear-gradient(90deg, #42e8ff, #b18aff, #ff58b4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
-.subtitle{
-  font-size:22px;
-  font-weight:bold;
-  color:#b99aff;
+.hero p { color: var(--muted); line-height: 1.7; }
+.platforms {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 9px; margin: 22px 0;
 }
-.platforms{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-  margin:30px 0;
+.platform {
+  border: 1px solid var(--line);
+  background: #ffffff08;
+  padding: 9px 13px; border-radius: 30px;
+  font-size: 13px; font-weight: 700;
 }
-.platform{
-  padding:12px 16px;
-  background:#102542;
-  border:1px solid #31517c;
-  border-radius:12px;
-  font-weight:bold;
+.panel {
+  background: linear-gradient(145deg, #201941, #111027);
+  border: 1px solid #5c438d;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 15px 55px #0005;
 }
-.panel{
-  padding:14px;
-  background:#0a1b32;
-  border:1px solid #3678bd;
-  border-radius:20px;
-  box-shadow:0 0 30px #087dff25;
+form { display: flex; flex-direction: column; gap: 11px; }
+input[type="url"] {
+  width: 100%; min-width: 0; padding: 16px;
+  border: 1px solid #554878; border-radius: 12px;
+  color: white; background: #0d0b20; font-size: 15px;
+  outline: none;
 }
-form{display:flex;gap:10px}
-input{
-  flex:1;
-  min-width:0;
-  padding:17px 12px;
-  border-radius:12px;
-  border:1px solid #405879;
-  background:#061226;
-  color:white;
-  font-size:15px;
+input:focus { border-color: var(--blue); }
+button {
+  font: inherit; font-weight: 750; cursor: pointer;
+  border: 0; border-radius: 12px; padding: 14px;
+  color: white; background: linear-gradient(100deg, #6556ff, #d83fbb);
 }
-button{
-  padding:15px 20px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(100deg,#008cff,#843cff);
-  color:white;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
+button:focus-visible, a:focus-visible {
+  outline: 2px solid white; outline-offset: 3px;
 }
-#result{
-  display:none;
-  padding:15px;
-  margin-top:15px;
-  border-radius:12px;
-  background:#102542;
-  overflow-wrap:anywhere;
-  line-height:1.6;
+button:disabled { opacity: .55; cursor: not-allowed; }
+.hint { font-size: 12px; color: var(--muted); line-height: 1.6; }
+#status {
+  display: none; margin-top: 14px; padding: 12px;
+  border-radius: 10px; background: #ffffff0d;
+  border: 1px solid #ffffff20; line-height: 1.6;
+  overflow-wrap: anywhere;
 }
-.features{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:25px;
-  margin:30px 0;
-  line-height:1.7;
+#preview { display: none; margin-top: 20px; }
+.section-title { font-size: 19px; margin: 0 0 14px; }
+.video-card {
+  overflow: hidden; border: 1px solid var(--line);
+  border-radius: 16px; background: #100d25;
 }
-.fast{color:#00e6a0}
-.safe{color:#00c8ff}
-.data{color:#d29aff}
-.ad{
-  min-height:120px;
-  border:1px dashed #52708e;
-  border-radius:15px;
-  padding:20px;
-  margin-top:30px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  color:#a8bed7;
-  gap:10px;
+.thumb-wrap {
+  position: relative; background: #080717;
+  aspect-ratio: 16/9; display: grid; place-items: center;
 }
-.ad strong{font-size:20px;color:#d5e7ff}
-footer{
-  padding:25px 15px;
-  text-align:center;
-  color:#8ca6c4;
-  font-size:13px;
-  line-height:1.8;
+.thumb-wrap img { width: 100%; height: 100%; object-fit: contain; }
+.thumb-placeholder { color: #aaa0d0; text-align: center; padding: 20px; }
+.video-info { padding: 15px; }
+.video-title { font-size: 17px; font-weight: 800; overflow-wrap: anywhere; }
+.video-meta { color: var(--muted); font-size: 12px; margin-top: 9px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.tag {
+  font-size: 12px; color: #b9eaff; background: #1d3151;
+  border: 1px solid #31527c; padding: 5px 9px; border-radius: 20px;
 }
-@media(max-width:600px){
-  main{margin:35px auto}
-  form{flex-direction:column}
-  input,button{width:100%}
-  .platform{flex:1;min-width:40%}
-  .features{gap:12px}
+.quality-section { margin-top: 22px; }
+.quality-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.quality-btn {
+  text-align: left; background: #17132e;
+  border: 1px solid #49406e; padding: 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
+}
+.quality-btn span { color: #c8c0e4; font-size: 11px; font-weight: 500; }
+.quality-btn:hover { border-color: var(--pink); }
+.ad {
+  margin-top: 28px; min-height: 125px; padding: 20px;
+  border: 1px dashed #62538a; border-radius: 15px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 9px; text-align: center;
+  color: var(--muted); background: #ffffff05;
+}
+.ad strong { color: #e1d5ff; letter-spacing: 2px; font-size: 12px; }
+.features {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; margin-top: 22px;
+}
+.feature {
+  background: #ffffff08; border: 1px solid #ffffff15;
+  padding: 14px 7px; text-align: center; border-radius: 12px;
+  font-size: 12px; line-height: 1.6;
+}
+footer {
+  text-align: center; color: #a39bbd;
+  font-size: 12px; line-height: 1.8; padding: 28px 15px;
+}
+[hidden] { display: none !important; }
+@media(max-width:480px) {
+  main { margin: 26px auto; }
+  .quality-list { grid-template-columns: 1fr; }
+  .features { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -141,50 +158,89 @@ footer{
 <body>
 <header>
   <div class="logo">▶ FYTI Downloader</div>
+  <p class="tagline">One Link. Your Video Studio.</p>
 </header>
 
 <main>
-  <h1><span class="gradient">FYTI</span> Downloader</h1>
-  <p class="subtitle">One Link. All Your Videos.</p>
+  <section class="hero">
+    <h1><span class="gradient">Download</span> Video</h1>
+    <p>Paste a video link to check its platform and available preview.</p>
+  </section>
 
   <div class="platforms">
-    <div class="platform">📘 Facebook</div>
-    <div class="platform">▶️ YouTube</div>
-    <div class="platform">🎵 TikTok</div>
-    <div class="platform">📸 Instagram</div>
+    <span class="platform">📘 Facebook</span>
+    <span class="platform">▶ YouTube</span>
+    <span class="platform">🎵 TikTok</span>
+    <span class="platform">📸 Instagram</span>
   </div>
 
-  <div class="panel">
+  <section class="panel">
     <form id="videoForm">
-      <input
-        id="videoUrl"
-        type="url"
-        placeholder="Enter Facebook/YouTube/TikTok/Instagram video URL here.."
-        aria-label="Video URL"
-        required
-      >
-      <button type="submit">✦ Detect Video</button>
+      <input id="videoUrl" type="url" required
+        placeholder="Paste Facebook / YouTube / TikTok / Instagram URL..."
+        aria-label="Video URL">
+      <button type="submit">⬇ Download Video</button>
     </form>
-  </div>
+    <p class="hint">Start by entering a valid video link. Preview support varies by platform.</p>
+    <div id="status" role="status" aria-live="polite"></div>
+  </section>
 
-  <div id="result" role="status" aria-live="polite"></div>
+  <section id="preview">
+    <h2 class="section-title">🎬 Video Preview</h2>
+    <div class="video-card">
+      <div class="thumb-wrap">
+        <img id="thumbnail" alt="Video thumbnail" hidden>
+        <div id="thumbPlaceholder" class="thumb-placeholder">
+          <div style="font-size:42px">▶</div>
+          Preview image may not be available for this platform.
+        </div>
+      </div>
+      <div class="video-info">
+        <div id="videoTitle" class="video-title">Video link detected</div>
+        <div id="videoMeta" class="video-meta"></div>
+        <div id="videoTags" class="tags"></div>
+        <div id="videoLinkRow" class="hint" style="margin-top:14px"></div>
+      </div>
+    </div>
 
-  <div class="features">
-    <div>⚡ <span class="fast">Fast</span></div>
-    <div>🔒 <span class="safe">Fast &amp; Secure</span></div>
-    <div>📉 <span class="data">Data Saver</span></div>
-    <div>🔎 Auto Detect Video</div>
-  </div>
+    <section class="quality-section">
+      <h2 class="section-title">⚡ Choose Video Quality</h2>
+      <div class="quality-list">
+        <button class="quality-btn" type="button" data-quality="460p">
+          <div>⬇ Download in 460p<br><span>Standard quality</span></div><b>›</b>
+        </button>
+        <button class="quality-btn" type="button" data-quality="720p">
+          <div>⬇ Download in 720p<br><span>HD quality</span></div><b>›</b>
+        </button>
+        <button class="quality-btn" type="button" data-quality="1080p">
+          <div>⬇ Download in 1080p<br><span>Full HD</span></div><b>›</b>
+        </button>
+        <button class="quality-btn" type="button" data-quality="2K / 4K">
+          <div>⬇ Download in 2K / 4K<br><span>Ultra HD, if available</span></div><b>›</b>
+        </button>
+      </div>
+      <p class="hint">Quality options are displayed as requested. Actual downloads require a connected download service and depend on the source video.</p>
+    </section>
+  </section>
 
   <section class="ad">
-    <span>ADVERTISEMENT</span>
-    <strong>Advertisement Space</strong>
-    <span>AdSense ads can appear here after approval and setup.</span>
+    <strong>ADVERTISEMENT</strong>
+    <div style="font-size:18px">📢 Advertisement Space</div>
+    <div class="hint">Ad placement ready — connect an approved ad provider to show real ads.</div>
   </section>
+
+  <div class="features">
+    <div class="feature">🌈<br>Colorful design</div>
+    <div class="feature">📱<br>Mobile friendly</div>
+    <div class="feature">🔗<br>Link detection</div>
+    <div class="feature">🖼️<br>Preview support</div>
+    <div class="feature">⚡<br>Simple to use</div>
+    <div class="feature">🔒<br>Privacy aware</div>
+  </div>
 </main>
 
 <footer>
-  Use only videos you own or have permission to download.<br>
+  Only download videos you own or have permission to save.<br>
   Platform rules and copyright restrictions may apply.<br>
   © 2026 FYTI Downloader
 </footer>
@@ -192,7 +248,62 @@ footer{
 <script>
 const form = document.getElementById("videoForm");
 const input = document.getElementById("videoUrl");
-const result = document.getElementById("result");
+const statusBox = document.getElementById("status");
+const preview = document.getElementById("preview");
+const thumbnail = document.getElementById("thumbnail");
+const placeholder = document.getElementById("thumbPlaceholder");
+const titleBox = document.getElementById("videoTitle");
+const metaBox = document.getElementById("videoMeta");
+const tagsBox = document.getElementById("videoTags");
+const linkRow = document.getElementById("videoLinkRow");
+
+let currentPlatform = "";
+let currentUrl = "";
+
+function showStatus(message) {
+  statusBox.textContent = message;
+  statusBox.style.display = "block";
+}
+
+function setThumbnail(url) {
+  thumbnail.hidden = true;
+  placeholder.hidden = false;
+  thumbnail.onerror = () => {
+    thumbnail.hidden = true;
+    placeholder.hidden = false;
+  };
+  thumbnail.onload = () => {
+    thumbnail.hidden = false;
+    placeholder.hidden = true;
+  };
+  thumbnail.src = url;
+}
+
+function detectPlatform(host) {
+  if (host === "youtu.be" || host === "youtube.com" ||
+      host.endsWith(".youtube.com")) return "YouTube";
+  if (host === "facebook.com" || host.endsWith(".facebook.com") ||
+      host === "fb.watch") return "Facebook";
+  if (host === "tiktok.com" || host.endsWith(".tiktok.com")) return "TikTok";
+  if (host === "instagram.com" || host.endsWith(".instagram.com"))
+    return "Instagram";
+  return "";
+}
+
+function getYouTubeId(url) {
+  const host = url.hostname.toLowerCase();
+  if (host === "youtu.be") return url.pathname.split("/").filter(Boolean)[0] || "";
+  if (url.pathname === "/watch") return url.searchParams.get("v") || "";
+  const match = url.pathname.match(/^\/(?:shorts|embed|live)\/([^/?]+)/);
+  return match ? match[1] : "";
+}
+
+function addTag(text) {
+  const tag = document.createElement("span");
+  tag.className = "tag";
+  tag.textContent = text;
+  tagsBox.appendChild(tag);
+}
 
 form.addEventListener("submit", function(event) {
   event.preventDefault();
@@ -201,42 +312,73 @@ form.addEventListener("submit", function(event) {
   try {
     url = new URL(input.value.trim());
   } catch {
-    show("Please enter a valid video URL.");
+    showStatus("Please enter a valid video URL.");
+    return;
+  }
+
+  if (!["https:", "http:"].includes(url.protocol)) {
+    showStatus("Please use a valid HTTP or HTTPS link.");
     return;
   }
 
   const host = url.hostname.toLowerCase().replace(/^www\./, "");
-  let platform = "";
-
-  if (host === "facebook.com" ||
-      host.endsWith(".facebook.com") ||
-      host === "fb.watch") {
-    platform = "Facebook";
-  } else if (host === "youtube.com" ||
-             host.endsWith(".youtube.com") ||
-             host === "youtu.be") {
-    platform = "YouTube";
-  } else if (host === "tiktok.com" ||
-             host.endsWith(".tiktok.com")) {
-    platform = "TikTok";
-  } else if (host === "instagram.com" ||
-             host.endsWith(".instagram.com")) {
-    platform = "Instagram";
-  }
+  const platform = detectPlatform(host);
 
   if (!platform) {
-    show("Unsupported link. Please paste a Facebook, YouTube, TikTok, or Instagram URL.");
+    showStatus("Unsupported link. Try Facebook, YouTube, TikTok, or Instagram.");
     return;
   }
 
-  show("Platform detected: " + platform +
-       ". The download service is not connected yet.");
+  currentPlatform = platform;
+  currentUrl = url.href;
+  preview.style.display = "block";
+  titleBox.textContent = platform + " video";
+  metaBox.textContent = "Platform detected: " + platform;
+  tagsBox.replaceChildren();
+  addTag("#" + platform);
+  addTag("#Video");
+  addTag("#FYTI");
+  linkRow.replaceChildren();
+
+  const link = document.createElement("a");
+  link.href = currentUrl;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "Open original video ↗";
+  link.style.color = "#72d8ff";
+  linkRow.appendChild(link);
+
+  if (platform === "YouTube") {
+    const id = getYouTubeId(url);
+    if (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) {
+      setThumbnail("https://img.youtube.com/vi/" + id + "/hqdefault.jpg");
+      titleBox.textContent = "YouTube video preview";
+      metaBox.textContent = "YouTube · Video ID: " + id;
+    } else {
+      thumbnail.hidden = true;
+      placeholder.hidden = false;
+      titleBox.textContent = "YouTube link detected";
+    }
+  } else {
+    thumbnail.hidden = true;
+    placeholder.hidden = false;
+    titleBox.textContent = platform + " link detected";
+  }
+
+  showStatus(platform + " detected! Preview information is limited until a compatible metadata service is connected. The download service is not connected yet.");
+  preview.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
-function show(message) {
-  result.textContent = message;
-  result.style.display = "block";
-}
+document.querySelectorAll(".quality-btn").forEach(button => {
+  button.addEventListener("click", function() {
+    const quality = button.dataset.quality;
+    if (!currentUrl) {
+      showStatus("First paste a video URL and press Download Video.");
+      return;
+    }
+    showStatus("You selected " + quality + ". Actual downloading is not available yet because the backend is not connected. Open the original video link above for now.");
+  });
+});
 </script>
 </body>
 </html>
