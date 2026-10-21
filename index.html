@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FYTI Downloader - One Link. All Your Videos.">
+<title>FYTI Downloader - Video Downloader</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  background:radial-gradient(circle at top left,#123e78,transparent 45%),
+  linear-gradient(135deg,#020817,#10102d,#071a30);
+  min-height:100vh;
+}
+header{
+  padding:20px;
+  border-bottom:1px solid #244466;
+  text-align:center;
+}
+.logo{
+  font-size:30px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#00e5ff,#a855f7,#ff4db8);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+main{
+  max-width:850px;
+  width:92%;
+  margin:50px auto;
+  text-align:center;
+}
+h1{font-size:clamp(32px,7vw,56px);margin-bottom:12px}
+.gradient{
+  background:linear-gradient(90deg,#00e5ff,#818cf8,#ff4db8);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.subtitle{
+  font-size:22px;
+  font-weight:bold;
+  color:#b99aff;
+}
+.platforms{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:30px 0;
+}
+.platform{
+  padding:12px 16px;
+  background:#102542;
+  border:1px solid #31517c;
+  border-radius:12px;
+  font-weight:bold;
+}
+.panel{
+  padding:14px;
+  background:#0a1b32;
+  border:1px solid #3678bd;
+  border-radius:20px;
+  box-shadow:0 0 30px #087dff25;
+}
+form{display:flex;gap:10px}
+input{
+  flex:1;
+  min-width:0;
+  padding:17px 12px;
+  border-radius:12px;
+  border:1px solid #405879;
+  background:#061226;
+  color:white;
+  font-size:15px;
+}
+button{
+  padding:15px 20px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(100deg,#008cff,#843cff);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+#result{
+  display:none;
+  padding:15px;
+  margin-top:15px;
+  border-radius:12px;
+  background:#102542;
+  overflow-wrap:anywhere;
+  line-height:1.6;
+}
+.features{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:25px;
+  margin:30px 0;
+  line-height:1.7;
+}
+.fast{color:#00e6a0}
+.safe{color:#00c8ff}
+.data{color:#d29aff}
+.ad{
+  min-height:120px;
+  border:1px dashed #52708e;
+  border-radius:15px;
+  padding:20px;
+  margin-top:30px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  color:#a8bed7;
+  gap:10px;
+}
+.ad strong{font-size:20px;color:#d5e7ff}
+footer{
+  padding:25px 15px;
+  text-align:center;
+  color:#8ca6c4;
+  font-size:13px;
+  line-height:1.8;
+}
+@media(max-width:600px){
+  main{margin:35px auto}
+  form{flex-direction:column}
+  input,button{width:100%}
+  .platform{flex:1;min-width:40%}
+  .features{gap:12px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">▶ FYTI Downloader</div>
+</header>
+
+<main>
+  <h1><span class="gradient">FYTI</span> Downloader</h1>
+  <p class="subtitle">One Link. All Your Videos.</p>
+
+  <div class="platforms">
+    <div class="platform">📘 Facebook</div>
+    <div class="platform">▶️ YouTube</div>
+    <div class="platform">🎵 TikTok</div>
+    <div class="platform">📸 Instagram</div>
+  </div>
+
+  <div class="panel">
+    <form id="videoForm">
+      <input
+        id="videoUrl"
+        type="url"
+        placeholder="Enter Facebook/YouTube/TikTok/Instagram video URL here.."
+        aria-label="Video URL"
+        required
+      >
+      <button type="submit">✦ Detect Video</button>
+    </form>
+  </div>
+
+  <div id="result" role="status" aria-live="polite"></div>
+
+  <div class="features">
+    <div>⚡ <span class="fast">Fast</span></div>
+    <div>🔒 <span class="safe">Fast &amp; Secure</span></div>
+    <div>📉 <span class="data">Data Saver</span></div>
+    <div>🔎 Auto Detect Video</div>
+  </div>
+
+  <section class="ad">
+    <span>ADVERTISEMENT</span>
+    <strong>Advertisement Space</strong>
+    <span>AdSense ads can appear here after approval and setup.</span>
+  </section>
+</main>
+
+<footer>
+  Use only videos you own or have permission to download.<br>
+  Platform rules and copyright restrictions may apply.<br>
+  © 2026 FYTI Downloader
+</footer>
+
+<script>
+const form = document.getElementById("videoForm");
+const input = document.getElementById("videoUrl");
+const result = document.getElementById("result");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  let url;
+  try {
+    url = new URL(input.value.trim());
+  } catch {
+    show("Please enter a valid video URL.");
+    return;
+  }
+
+  const host = url.hostname.toLowerCase().replace(/^www\./, "");
+  let platform = "";
+
+  if (host === "facebook.com" ||
+      host.endsWith(".facebook.com") ||
+      host === "fb.watch") {
+    platform = "Facebook";
+  } else if (host === "youtube.com" ||
+             host.endsWith(".youtube.com") ||
+             host === "youtu.be") {
+    platform = "YouTube";
+  } else if (host === "tiktok.com" ||
+             host.endsWith(".tiktok.com")) {
+    platform = "TikTok";
+  } else if (host === "instagram.com" ||
+             host.endsWith(".instagram.com")) {
+    platform = "Instagram";
+  }
+
+  if (!platform) {
+    show("Unsupported link. Please paste a Facebook, YouTube, TikTok, or Instagram URL.");
+    return;
+  }
+
+  show("Platform detected: " + platform +
+       ". The download service is not connected yet.");
+});
+
+function show(message) {
+  result.textContent = message;
+  result.style.display = "block";
+}
+</script>
+</body>
+</html>
